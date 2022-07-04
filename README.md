@@ -1,4 +1,4 @@
-# chhaosop
+# chaosop
 ChaosOP (or Operator) is a chaos theory based noise synth/ sound generator for monome norns
 
 CHAOS OP! v1.0
