@@ -27,3 +27,9 @@ There is a max4live device available called "Norns_OSC_2" which you'll need to r
 https://github.com/deeg-deeg-deeg/Norns_OSC_2
 
 Cheers!
+
+
+![nornschaos](https://user-images.githubusercontent.com/104967140/177141985-4b56a226-ea2c-445c-af18-4875870e10e6.jpg)
+
+
+
