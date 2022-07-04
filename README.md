@@ -22,5 +22,8 @@ KEY 2&3: switch between chaos theorems
 
 -----------------------------------------
 
+There is a max4live device available called "Norns_OSC_2" which you'll need to receive Chaos OPs output via OSC in Ableton Live. 
+
+https://github.com/deeg-deeg-deeg/Norns_OSC_2
 
 Cheers!
