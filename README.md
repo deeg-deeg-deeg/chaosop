@@ -26,6 +26,9 @@ There is a max4live device available called "Norns_OSC_2" which you'll need to r
 
 https://github.com/deeg-deeg-deeg/Norns_OSC_2
 
+If you want to send via OSC you have to specify the receiver address and port in the code at line 92: osc_dest =  {"192.168.1.3",9001}
+I haven't found a good way to input it via a menu in Norns. 
+
 Cheers!
 
 
