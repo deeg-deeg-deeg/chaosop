@@ -40,4 +40,5 @@ And a MANUAL is now available under: <a href="https://github.com/deeg-deeg-deeg/
 ![nornschaos](https://user-images.githubusercontent.com/104967140/177141985-4b56a226-ea2c-445c-af18-4875870e10e6.jpg)
 
 
+<img width="700" alt="Bildschirmfoto 2022-08-22 um 16 43 28" src="https://user-images.githubusercontent.com/104967140/186149155-21c90775-ab31-4f3d-a016-4fa4aa25f227.png">
 
