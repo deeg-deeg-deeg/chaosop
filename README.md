@@ -31,6 +31,11 @@ I haven't found a good way to input it via a menu in Norns.
 
 Cheers!
 
+UPDATE:
+Added better MIDI support. You can select midi device and channel to send on via the EDIT menu.
+And a MANUAL is now available under: <a href="https://github.com/deeg-deeg-deeg/manuals">https://github.com/deeg-deeg-deeg/manuals</a>
+
+
 
 ![nornschaos](https://user-images.githubusercontent.com/104967140/177141985-4b56a226-ea2c-445c-af18-4875870e10e6.jpg)
 
