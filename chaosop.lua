@@ -394,10 +394,7 @@ function init()
           midi_device[target]:note_on(note,rnd,midi_chan) 
           clock.sleep(0.01)
           midi_device[target]:note_off(note,rnd,midi_chan)  
-      end
-
-      -- Send MIDI cc
-      if params:get("midisend") == 3 then
+      elseif params:get("midisend") == 3 then
         local val = MusicUtil.freq_to_note_num(math.abs(x0*multi))
         local cc = params:get("midi_cc")
         midi_device[target]:cc(cc, val, midi_chan)
