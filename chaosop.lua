@@ -34,6 +34,7 @@ midi_device = {} -- container for connected midi devices
 midi_device_names = {}
 target = 1
 midi_chan = 1
+midi_cc = 95
 
   for i = 1,#midi.vports do -- query all ports
     midi_device[i] = midi.connect(i) -- connect each device
@@ -217,6 +218,7 @@ function init()
         draw_style = params:get("dstyle")
         screen_scale = params:get("scsc")
         midi_chan = params:get("midi_chan")
+        midi_cc = params:get("midi_cc")
         
         
        clock.sync(0.01*speed)
@@ -383,7 +385,8 @@ function init()
         --osc.send(osc_dest,"/velo",{0})
          
       end
-      
+
+      -- Send MIDI notes
       if params:get("midisend") == 2 then
           local rnd = math.random(0,120)
           local note = MusicUtil.freq_to_note_num(x0*multi)
@@ -391,8 +394,14 @@ function init()
           midi_device[target]:note_on(note,rnd,midi_chan) 
           clock.sleep(0.01)
           midi_device[target]:note_off(note,rnd,midi_chan)  
+      end
 
-      end 
+      -- Send MIDI cc
+      if params:get("midisend") == 3 then
+        local val = MusicUtil.freq_to_note_num(math.abs(x0*multi))
+        local cc = params:get("midi_cc")
+        midi_device[target]:cc(cc, val, midi_chan)
+      end
         
         redraw()
         
