@@ -27,11 +27,12 @@ local mnames = {
   
 }
 
-
   params:add_separator("MIDI SETUP")
-  params:add_option("midi target", "midi target",midi_device_names,1)
+  params:add_option("midisend","Send Midi",{"OFF", "NOTE", "CC"}, 1)
+  params:add_option("midi target", "midi target",midi_device_names, 1)
   params:set_action("midi target", function(x) target = x end)
-  params:add_control("midi_chan", "send on midi channel", controlspec.new(1, 100, "lin", 1, 1, ""))
+  params:add_number("midi_chan", "send on midi channel", 1, 100, 1)
+  params:add_number("midi_cc", "midi cc", 1, 128, 95)
 
   params:add_separator("")
 
@@ -74,7 +75,6 @@ function ChaosOp.add_params()
   params:add_option("dstyle","Draw Style",{"Lines", "Map"},1)
   params:add_control("chaosth", "Theorem", controlspec.new(1, 9, "lin", 0, 1, ""))
   params:add_control("scsc", "ScreenScale", controlspec.new(0.1, 1000, "lin", 0, 1, ""))
-  params:add_option("midisend","Send Midi",{"OFF", "ON"},1)
   
   params:bang()
 end
