@@ -389,11 +389,12 @@ function init()
       -- Send MIDI notes
       if params:get("midisend") == 2 then
           local rnd = math.random(0,120)
-          local note = MusicUtil.freq_to_note_num(x0*multi)
+          local note = MusicUtil.freq_to_note_num(math.abs(x0*multi))
         
           midi_device[target]:note_on(note,rnd,midi_chan) 
           clock.sleep(0.01)
           midi_device[target]:note_off(note,rnd,midi_chan)  
+     
       elseif params:get("midisend") == 3 then
         local val = MusicUtil.freq_to_note_num(math.abs(x0*multi))
         local cc = params:get("midi_cc")
