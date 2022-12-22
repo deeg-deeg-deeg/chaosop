@@ -421,8 +421,21 @@ function init()
 	 clock.sleep(0.01)
 	 midi_device[target]:note_off(note, 0, midi_chan_x)
 
-      -- Send MIDI note from X, cc from Y.
+	 -- Send MIDI note from X with length from Y.
       elseif params:get("midisend") == 5 then
+	 -- Note from X
+	 local note = MusicUtil.freq_to_note_num(math.abs(sendx))
+	 -- local note_len = MusicUtil.freq_to_note_num(math.abs(sendy)) / 10
+	 local note_len = math.abs(sendy/100)
+	 midi_device[target]:note_on(note, 100, midi_chan_x)
+	 -- Schedule a note off later
+	 clock.run(function(len)
+	       clock.sleep(len)
+	       midi_device[target]:note_off(note, 0, midi_chan_x)
+	 end, note_len)
+
+      -- Send MIDI note from X, cc from Y.
+      elseif params:get("midisend") == 6 then
 	 -- Note from X
 	 local note_x = MusicUtil.freq_to_note_num(math.abs(sendx))
 	 midi_device[target]:note_on(note_x,rnd,midi_chan_x)
