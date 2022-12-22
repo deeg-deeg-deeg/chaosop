@@ -28,13 +28,13 @@ local mnames = {
 }
 
   params:add_separator("MIDI SETUP")
-  params:add_option("midisend","Send Midi",{"OFF", "NOTE", "CC"}, 1)
-  params:add_option("midi target", "midi target",midi_device_names, 1)
+  params:add_option("midisend","MIDI Send",{"OFF", "NOTES", "CC"}, 1)
+  params:add_option("midi target", "MIDI Target",midi_device_names, 1)
   params:set_action("midi target", function(x) target = x end)
-  params:add_number("midi_chan", "send on midi channel", 1, 100, 1)
-  params:add_number("midi_cc", "midi cc", 1, 128, 95)
-
-  params:add_separator("")
+  params:add_number("midi_chan_x", "MIDI X Channel", 1, 100, 1)
+  params:add_number("midi_cc_x",   "MIDI X CC",      1, 128, 95)
+  params:add_number("midi_chan_y", "MIDI Y Channel", 1, 100, 2)
+  params:add_number("midi_cc_y",   "MIDI Y CC",      1, 128, 95)
 
   params:add_separator("Basic Control")
   

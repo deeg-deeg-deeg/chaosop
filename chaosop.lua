@@ -33,8 +33,10 @@ osc_dest = {"192.168.1.1",9001}
 midi_device = {} -- container for connected midi devices
 midi_device_names = {}
 target = 1
-midi_chan = 1
-midi_cc = 95
+midi_chan_x = 1
+midi_chan_y = 2
+midi_cc_x = 95
+midi_cc_y = 95
 
   for i = 1,#midi.vports do -- query all ports
     midi_device[i] = midi.connect(i) -- connect each device
@@ -214,11 +216,13 @@ function init()
         
         xam = params:get("xamo")
         yam = params:get("yamo")
-        midi_target = params:get("chaosth")
+        -- midi_target = params:get("chaosth") -- FIXME What is this?
         draw_style = params:get("dstyle")
         screen_scale = params:get("scsc")
-        midi_chan = params:get("midi_chan")
-        midi_cc = params:get("midi_cc")
+        midi_chan_x = params:get("midi_chan_x")
+        midi_cc_x = params:get("midi_cc_x")
+        midi_chan_y = params:get("midi_chan_y")
+        midi_cc_y = params:get("midi_cc_y")
         
         
        clock.sync(0.01*speed)
@@ -370,35 +374,43 @@ function init()
 
       end
       
- 
-        
-      if osc_snd then
-      
-        local sendx = x0*multi
-        local sendy = y0*multi
-        
-        if sendx > 20000 then sendx = 20000 end
-        if sendy > 20000 then sendy = 20000 end
+      local sendx = x0*multi
+      local sendy = y0*multi
+      if sendx > 20000 then sendx = 20000 end
+      if sendy > 20000 then sendy = 20000 end
 
+      if osc_snd then
         osc.send(osc_dest,"/chaos",{sendx,sendy})
         osc.send(osc_dest,"/velo",{velocity})
         --osc.send(osc_dest,"/velo",{0})
-         
       end
 
-      -- Send MIDI notes
+      -- Send MIDI notes.
       if params:get("midisend") == 2 then
           local rnd = math.random(0,120)
-          local note = MusicUtil.freq_to_note_num(math.abs(x0*multi))
-        
-          midi_device[target]:note_on(note,rnd,midi_chan) 
+          local note_x = MusicUtil.freq_to_note_num(math.abs(sendx))
+	  local note_y = MusicUtil.freq_to_note_num(math.abs(sendy))
+
+	  -- Note from X
+          midi_device[target]:note_on(note_x,rnd,midi_chan_x)
           clock.sleep(0.01)
-          midi_device[target]:note_off(note,rnd,midi_chan)  
-     
+          midi_device[target]:note_off(note,rnd,midi_chan_x)
+
+	  -- Note from Y
+	  midi_device[target]:note_on(note_y,rnd,midi_chan_y)
+          clock.sleep(0.01)
+          midi_device[target]:note_off(note,rnd,midi_chan_y)
+      -- Send MIDI cc
       elseif params:get("midisend") == 3 then
-        local val = MusicUtil.freq_to_note_num(math.abs(x0*multi))
-        local cc = params:get("midi_cc")
-        midi_device[target]:cc(cc, val, midi_chan)
+	 -- CC from X
+	 local valx = MusicUtil.freq_to_note_num(math.abs(sendx))
+	 local ccx = params:get("midi_cc_x")
+	 midi_device[target]:cc(ccx, valx, midi_chan_x)
+
+	 -- CC from Y
+	 local valy = MusicUtil.freq_to_note_num(math.abs(sendy))
+	 local ccy = params:get("midi_cc_y")
+	 midi_device[target]:cc(ccy, valy, midi_chan_y)
       end
         
         redraw()
