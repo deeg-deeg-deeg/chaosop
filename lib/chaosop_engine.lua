@@ -28,7 +28,7 @@ local mnames = {
 }
 
   params:add_separator("MIDI SETUP")
-  params:add_option("midisend","MIDI Send",{"OFF", "NOTES", "CC", "X NOTE, Y CC"}, 1)
+  params:add_option("midisend","MIDI Send",{"off", "notes", "CC", "X note, Y velocity", "X note, Y CC"}, 1)
   params:add_option("midi target", "MIDI Target",midi_device_names, 1)
   params:set_action("midi target", function(x) target = x end)
   params:add_number("midi_chan_x", "MIDI X Channel", 1, 100, 1)

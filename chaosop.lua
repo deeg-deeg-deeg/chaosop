@@ -413,8 +413,16 @@ function init()
 	 local ccy = params:get("midi_cc_y")
 	 midi_device[target]:cc(ccy, valy, midi_chan_y)
 
-      -- Send X note from X, cc from Y.
+      -- Send MIDI note from X with velocity from Y.
       elseif params:get("midisend") == 4 then
+	 local note = MusicUtil.freq_to_note_num(math.abs(sendx))
+	 local vel = MusicUtil.freq_to_note_num(math.abs(sendy))
+	 midi_device[target]:note_on(note, vel, midi_chan_x)
+	 clock.sleep(0.01)
+	 midi_device[target]:note_off(note, 0, midi_chan_x)
+
+      -- Send MIDI note from X, cc from Y.
+      elseif params:get("midisend") == 5 then
 	 -- Note from X
 	 local note_x = MusicUtil.freq_to_note_num(math.abs(sendx))
 	 midi_device[target]:note_on(note_x,rnd,midi_chan_x)
