@@ -385,7 +385,7 @@ function init()
         --osc.send(osc_dest,"/velo",{0})
       end
 
-      -- Send MIDI notes.
+      -- Send MIDI notes from both X and Y.
       if params:get("midisend") == 2 then
           local rnd = math.random(0,120)
           local note_x = MusicUtil.freq_to_note_num(math.abs(sendx))
@@ -400,12 +400,26 @@ function init()
 	  midi_device[target]:note_on(note_y,rnd,midi_chan_y)
           clock.sleep(0.01)
           midi_device[target]:note_off(note,rnd,midi_chan_y)
-      -- Send MIDI cc
+
+      -- Send MIDI cc from both X and Y.
       elseif params:get("midisend") == 3 then
 	 -- CC from X
 	 local valx = MusicUtil.freq_to_note_num(math.abs(sendx))
 	 local ccx = params:get("midi_cc_x")
 	 midi_device[target]:cc(ccx, valx, midi_chan_x)
+
+	 -- CC from Y
+	 local valy = MusicUtil.freq_to_note_num(math.abs(sendy))
+	 local ccy = params:get("midi_cc_y")
+	 midi_device[target]:cc(ccy, valy, midi_chan_y)
+
+      -- Send X note from X, cc from Y.
+      elseif params:get("midisend") == 4 then
+	 -- Note from X
+	 local note_x = MusicUtil.freq_to_note_num(math.abs(sendx))
+	 midi_device[target]:note_on(note_x,rnd,midi_chan_x)
+	 clock.sleep(0.01)
+	 midi_device[target]:note_off(note,rnd,midi_chan_x)
 
 	 -- CC from Y
 	 local valy = MusicUtil.freq_to_note_num(math.abs(sendy))
